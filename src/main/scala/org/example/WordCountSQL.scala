@@ -16,10 +16,17 @@ object WordCountSQL {
     // 注册DataSet为视图
     tEnv.createTemporaryView("WordCount", input, $"word", $"frequency")
 
+    tEnv.createTemporarySystemFunction("sub_string", classOf[TestFunc])
+
     // SQL query, retrieve 结果返回一个新的表
     val table = tEnv.sqlQuery("SELECT word, SUM(frequency) FROM WordCount GROUP BY word")
 
     table.toDataSet[WC].print()
+
+    // test udf
+    val b = tEnv.sqlQuery("SELECT sub_string(word, 1, 2), frequency FROM WordCount")
+
+    b.toDataSet[WC].print()
   }
 
   case class WC(word: String, frequency: Long)
