@@ -5,6 +5,9 @@ import org.apache.flink.table.api._
 import org.apache.flink.table.api.bridge.scala._
 
 
+/**
+ * @wiki https://ci.apache.org/projects/flink/flink-docs-stable/dev/table/functions/udfs.html
+ */
 object WordCountSQL {
   def main(args: Array[String]): Unit = {
     // 安装可执行环境
